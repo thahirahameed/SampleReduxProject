@@ -16,7 +16,7 @@ const Navigator = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  console.log('The value is : ' + $user);
+  console.log('The value is : ' + user);
   useEffect(() => {
     checkuserLoggedIn();
   }, [user]);

@@ -19,7 +19,7 @@ const DashboardScreen = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {user}
+        {user.email}
       </Text>
 
       <View>
