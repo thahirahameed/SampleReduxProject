@@ -1,22 +1,25 @@
 import {useEffect, useState} from 'react';
-import {} from 'react-native';
+import {Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
-
 import {
   TestReduxClassScreen,
   TestReduxScreen,
   LoginScreen,
   DashboardScreen,
+  CartScreen,
+  ListScreen,
 } from '../screens';
+import {clearCart} from '../features/cart/cartSlice';
 
 const Stack = createNativeStackNavigator();
 
 const Navigator = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  console.log('The value is : ' + user);
+
   useEffect(() => {
     checkuserLoggedIn();
   }, [user]);
@@ -32,6 +35,27 @@ const Navigator = () => {
   const getMainStack = () => {
     return (
       <Stack.Group>
+        <Stack.Screen
+          name="listScreen"
+          component={ListScreen}
+          options={{title: 'List Screen'}}
+        />
+        <Stack.Screen
+          name="cartScreen"
+          component={CartScreen}
+          options={{
+            title: 'Cart Screen',
+            headerRight: () => (
+              <Button
+                onPress={() => {
+                  dispatch(clearCart());
+                }}
+                title="Clear cart"
+                color="red"
+              />
+            ),
+          }}
+        />
         <Stack.Screen
           name="dashboardScreen"
           component={DashboardScreen}
@@ -63,11 +87,7 @@ const Navigator = () => {
     );
   };
 
-  return (
-    <Stack.Navigator>
-      {isUserLoggedIn ? getMainStack() : loginStack()}
-    </Stack.Navigator>
-  );
+  return <Stack.Navigator>{getMainStack()}</Stack.Navigator>;
 };
 
 export default Navigator;
