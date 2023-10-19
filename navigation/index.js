@@ -97,7 +97,7 @@ const Navigator = () => {
 
   return (
     <Stack.Navigator>
-      {isUserLoggedIn ? getMainStack() : loginStack()}
+      {isUserLoggedIn() ? getMainStack() : loginStack()}
     </Stack.Navigator>
   );
 };
