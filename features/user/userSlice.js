@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {PersistanceHelper} from '../../helpers';
 
 const initialState = {};
 
@@ -10,6 +11,8 @@ const userSlice = createSlice({
       state.isFetching = true;
     },
     success: (state, action) => {
+      PersistanceHelper.setValue('accessToken', action.payload.id);
+
       state.data = action.payload;
       state.isFetching = false;
       state.failure = false;
