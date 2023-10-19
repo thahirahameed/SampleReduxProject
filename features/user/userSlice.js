@@ -1,18 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {PersistanceHelper} from '../../helpers';
 
 const initialState = {};
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // loginUser: (state, action) => {
-    //   state.email = action.payload;
-    // },
-    // logoutUser: (state, action) => {
-    //   state.email = '';
-    // },
     request: state => {
       state.isFetching = true;
     },
@@ -24,8 +17,8 @@ export const userSlice = createSlice({
     },
     failure: (state, action) => {
       state.isFetching = false;
-      state.failure = true;
       state.errorMessage = action.errorMessage;
+      state.failure = true;
     },
     logout: state => {
       state.data = {};
@@ -33,7 +26,6 @@ export const userSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const userActions = userSlice.actions;
 
 export default userSlice.reducer;

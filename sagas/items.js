@@ -1,4 +1,4 @@
-import {take, put, call, fork} from 'redux-saga';
+import {take, put, call, fork} from 'redux-saga/effects';
 
 import {itemsActions} from '../features/items/itemsSlice';
 import {ApiHelper, PersistanceHelper} from '../helpers';

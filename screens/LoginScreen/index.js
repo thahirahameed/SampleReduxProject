@@ -17,6 +17,7 @@ const LoginScreen = () => {
       <Text>Login</Text>
 
       <TextInput
+        autoCapitalize="none"
         value={email}
         onChangeText={changedText => {
           setEmail(changedText);

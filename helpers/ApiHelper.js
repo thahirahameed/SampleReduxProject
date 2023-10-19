@@ -7,7 +7,7 @@ class ApiHelper {
     const response = await fetch(completeUrl, data).then(x => x.json());
 
     return new Promise((resolve, reject) => {
-      this.handlepromise(resolve, reject, response);
+      this.handlePromise(resolve, reject, response);
     });
   }
 
@@ -24,19 +24,19 @@ class ApiHelper {
     }).then(x => x.json());
 
     return new Promise((resolve, reject) => {
-      this.handlepromise(resolve, reject, response);
+      this.handlePromise(resolve, reject, response);
     });
   }
 
-  handlepromise = (resolve, reject, response) => {
+  handlePromise = (resolve, reject, response) => {
     if (response.error) {
       if (response.error.code === 'LOGIN_FAILED') {
-        reject('any string error');
+        reject('any error string');
       } else if (response.error.code === 'NETWORK_ISSUE') {
-        reject('any string error');
-      } else {
-        resolve(response);
+        reject('any error string');
       }
+    } else {
+      resolve(response);
     }
   };
 }
