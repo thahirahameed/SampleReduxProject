@@ -1,13 +1,16 @@
 import {useState} from 'react';
 import {Text, View, TextInput, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../features/user/userSlice';
+import {userActions} from '../../features/user/userSlice';
+import {kApiLogin} from '../../config/WebServices';
 
-const LoginScreen = props => {
+const {request} = userActions;
+
+const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+  // const user = useSelector(state => state.user);
 
   return (
     <View style={{flex: 1}}>
@@ -43,8 +46,8 @@ const LoginScreen = props => {
 
       <TouchableOpacity
         onPress={() => {
-          dispatch(loginUser(email));
-          //  props.navigation.navigate('dashboardScreen');
+          dispatch(request({url: kApiLogin, data: {email, password}}));
+          // dispatch(loginUser(email));
         }}
         style={{
           marginHorizontal: 10,

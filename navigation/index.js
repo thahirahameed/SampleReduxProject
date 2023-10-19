@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react';
 import {Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,32 +8,41 @@ import {
   DashboardScreen,
   CartScreen,
   ListScreen,
+  ListApiScreen,
 } from '../screens';
-import {clearCart} from '../features/cart/cartSlice';
 
 const Stack = createNativeStackNavigator();
 
 const Navigator = () => {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  //const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
 
-  useEffect(() => {
-    checkuserLoggedIn();
-  }, [user]);
+  // useEffect(() => {
+  //   checkuserLoggedIn();
+  // }, [user]);
 
-  const checkuserLoggedIn = () => {
-    if (user.email == '') {
-      setIsUserLoggedIn(false);
-    } else {
-      setIsUserLoggedIn(true);
-    }
+  // const checkuserLoggedIn = () => {
+  //   if (user.email == '') {
+  //     setIsUserLoggedIn(false);
+  //   } else {
+  //     setIsUserLoggedIn(true);
+  //   }
+  // };
+
+  const isUserLoggedIn = () => {
+    return user?.data?.id && user?.data?.id?.length > 15;
   };
 
   const getMainStack = () => {
     return (
       <Stack.Group>
+        <Stack.Screen
+          name="listApiScreen"
+          component={ListApiScreen}
+          options={{title: 'List Api Screen'}}
+        />
         <Stack.Screen
           name="listScreen"
           component={ListScreen}
@@ -87,7 +95,11 @@ const Navigator = () => {
     );
   };
 
-  return <Stack.Navigator>{getMainStack()}</Stack.Navigator>;
+  return (
+    <Stack.Navigator>
+      {isUserLoggedIn ? getMainStack() : loginStack()}
+    </Stack.Navigator>
+  );
 };
 
 export default Navigator;
